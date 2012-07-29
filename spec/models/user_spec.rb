@@ -58,7 +58,14 @@ describe User do
       end
     end
   end
-
+  describe "email address with mixed case" do
+    let(:mixed_case_email) {'Foo@EXAMPle.Com'}
+    it "should have saved as all lower case "  do
+       @user.email = mixed_case_email
+       @user.save
+       @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
   describe "when email address is already taken" do
     before do
 
