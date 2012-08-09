@@ -19,7 +19,7 @@ describe User do
   it { should respond_to(:email)}
   it { should respond_to(:password_digest)}
   it { should respond_to(:password)}
-  it { should respondn_to(:password_confirmation)}
+  it { should respond_to(:password_confirmation)}
   it { should respond_to(:authenticate) }
 
 
@@ -73,7 +73,14 @@ describe User do
       end
     end
   end
-
+  describe "email address with mixed case" do
+    let(:mixed_case_email) {'Foo@EXAMPle.Com'}
+    it "should have saved as all lower case "  do
+       @user.email = mixed_case_email
+       @user.save
+       @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
   describe "when email address is already taken" do
     before do
 
@@ -104,7 +111,7 @@ describe User do
     let(:found_user) { User.find_by_email(@user.email)}
 
     describe "with valid password" do
-      it {should == found_user.authenticate(@user.password) }{ }
+      it {should == found_user.authenticate(@user.password)  }
     end
 
     describe "with invalid password" do
