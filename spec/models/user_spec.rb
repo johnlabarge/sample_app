@@ -31,7 +31,7 @@ describe User do
     let(:found_user)  {User.find_by_email(@user.email)}
 
     describe "with valid password " do
-      it {should == found_user.auenticate(@user.password)}
+      it {should == found_user.authenticate(@user.password)}
     end
     describe "with invalid password" do
       let(:user_for_invalid_password ) { found_user.authenticate("invalid")}
